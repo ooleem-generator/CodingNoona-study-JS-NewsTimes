@@ -1,5 +1,69 @@
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  }
+  
+  /* The navigation menu links */
+  .sidenav button {
+    border: none;
+    background: none;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Position and style the close button (top right corner) */
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    text-decoration-line: none;
+  }
+
+.top-buttons{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-top: 1em;
+}
+
+.top-buttons i{
+    margin: 1em;
+}
+
+.top-buttons i:hover{
+    cursor: pointer;
+}
+
+.hamburger-button{
+    display: none;
+}
+
+#search-group{
+    display: none;
+}
+
 .head-line{
     margin-top: 1em;
+    margin-bottom: 1em;
     display: flex;
     justify-content: center;
 }
@@ -34,4 +98,13 @@
 
 .news{
     border-bottom: 2px solid black;
+}
+
+@media (max-width:575px) {
+    .hamburger-button{
+        display: block;
+    }
+    .menus{
+        display: none;
+    }
 }

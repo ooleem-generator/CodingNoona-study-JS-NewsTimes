@@ -14,8 +14,26 @@
 </head>
 
 <body>
-
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <button>Business</button>
+        <button>Entertainment</button>
+        <button>General</button>
+        <button>Health</button>
+        <button>Science</button>
+        <button>Sports</button>
+        <button>Technology</button>
+    </div>
+      
     <section class = "container">
+        <div class = "top-buttons">
+            <i class="fa-solid fa-bars hamburger-button" onclick="openNav()"></i>
+            <i class="fa-solid fa-magnifying-glass search-button" onclick="toggleSearch()"></i>
+            <span id="search-group">
+                <input class="form-control me-2" id="search-input" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit" onclick="getNewsByKeyword()">검색</button>
+            </span>
+        </div>
         <section>
             <div class = "head-line">
                 <svg viewBox="0 0 184 25" fill="#000000" aria-hidden="true">
@@ -25,35 +43,18 @@
                 </svg>
             </div>
             <div class = "menus">
-                <button>Sport</button>
-                <button>Tech</button>
-                <button>World</button>
-                <button>Finance</button>
-                <button>Politics</button>
                 <button>Business</button>
-                <button>Economics</button>
                 <button>Entertainment</button>
-                <button>Beauty</button>
-                <button>Travel</button>
-                <button>Music</button>
-                <button>Food</button>
+                <button>General</button>
+                <button>Health</button>
                 <button>Science</button>
-                <button>Gaming</button>
-                <button>Energy</button>
+                <button>Sports</button>
+                <button>Technology</button>
             </div>
-
         </section>
+
         <section id="news-board">
-            <!-- <div class="row news">
-                <div class="col-lg-4">
-                    <img class="news-img-size" src="https://www.chosun.com/resizer/v2/6OCOLTCLRRI5GJFNDR7DQR6CEA.jpg?auth=0e5dcb42ec6cb9c034fb48aeafa83d7746b2da32e0d2b9e95ec94730688fa5d2&width=616">
-                </div>
-                <div class="col-lg-8">
-                    <h2>왱알왱알</h2>
-                    <p>맨까 새끼들 부들부들하구나</p>
-                    <div>감스트 2025.02.22.</div>
-                </div>
-            </div> -->
+
         </section>
 
     </section>
