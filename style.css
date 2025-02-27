@@ -72,6 +72,10 @@
     width: 430px;
 }
 
+.head-line svg:hover{
+    cursor: pointer;
+}
+
 .menus{
     margin-top: 1em;
     display: flex;
