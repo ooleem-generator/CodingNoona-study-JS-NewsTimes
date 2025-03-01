@@ -4,7 +4,13 @@ const menus = document.querySelectorAll(".menus button");
 menus.forEach(menu => menu.addEventListener("click", (event)=>getNewsByCategory(event)))
 let searchGroup = document.getElementById("search-group");
 let searchToggle = false;
+let searchButton = document.getElementById("search-button");
+let searchInput = document.getElementById("search-input");
 let url = new URL('https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr');
+let totalResults = 0;
+let page = 1;
+const pageSize = 10;
+const groupSize = 5;
 
 /* Set the width of the side navigation to 250px */
 function openNav() {
@@ -26,8 +32,20 @@ const toggleSearch = () => {
     console.log(searchGroup);
   };
 
+const keywordNullCheck = () => {
+    if (searchInput.value){
+        searchButton.disabled = false;
+    } else {
+        searchButton.disabled = true;
+    }
+}
+
+
 const getNews = async () => {
     try{
+        url.searchParams.set("page", page) // &page=page
+        url.searchParams.set("pageSize", pageSize)
+
         const response = await fetch(url)
         const data = await response.json()
         if (response.status === 200) {
@@ -35,8 +53,10 @@ const getNews = async () => {
                 throw new Error("No matches for your search")
             }
             newsList = data.articles;
-            console.log(newsList);
+            totalResults = data.totalResults
             render();
+            paginationRender();
+
         } else {
             throw new Error(data.message)
         }
@@ -44,7 +64,6 @@ const getNews = async () => {
     }catch (error) {
         errorRender(error.message);
     }
-
 }
 
 const getLatestNews = async () => {
@@ -52,6 +71,7 @@ const getLatestNews = async () => {
         // `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
         'https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr'
     );
+    page = 1;
     getNews();
 };
 
@@ -60,14 +80,17 @@ const getNewsByCategory = async (event) => {
     url = new URL(
         `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&category=${category}`
     );
+    page = 1;
     getNews();
 }
 
 const getNewsByKeyword = async () => {
-    const keyword =document.getElementById("search-input");
+    const keyword =searchInput.value;
     url = new URL(
         `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&q=${keyword}`
     );
+    page = 1;
+    console.log(keyword)
     getNews();
 }
 
@@ -88,6 +111,30 @@ const render = () => {
     console.log(newsList)
 }
 
+const paginationRender = () => {
+    const totalPages = Math.ceil(totalResults / pageSize);
+    const pageGroup = Math.ceil(page / groupSize);
+    let lastPage = pageGroup * groupSize;
+    if (lastPage > totalPages) {
+        lastPage = totalPages;
+    }
+    const firstPage = lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
+    let paginationHTML = `<li class="page-item ${page===1?"disabled" : ""}"><a class="page-link" onclick="moveToPage(${page-1})">Previous</a></li>`;
+
+    for (let i=firstPage; i<=lastPage; i++) {
+        paginationHTML += `<li class="page-item ${i===page?"active" : ""}" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`;
+    }
+
+    paginationHTML += `<li class="page-item ${page===lastPage?"disabled" : ""}"><a class="page-link" onclick="moveToPage(${page+1})">Next</a></li>`
+    document.querySelector(".pagination").innerHTML = paginationHTML;
+}
+
+const moveToPage = (pageNum) => {
+    page = pageNum;
+    getNews();
+}
+
+
 const errorRender = (errorMessage) => {
     const errorHTML = `<div class="alert alert-danger" role="alert">
   ${errorMessage}
@@ -95,5 +142,14 @@ const errorRender = (errorMessage) => {
     document.getElementById("news-board").innerHTML = errorHTML;
 }
 
+searchInput.addEventListener("keyup", function(event){
+    if (event.key === "Enter" && searchInput.value !== ''){
+        getNewsByKeyword();
+    }
+})
+
+searchInput.addEventListener("keyup", keywordNullCheck)
 
 getLatestNews();
+
+

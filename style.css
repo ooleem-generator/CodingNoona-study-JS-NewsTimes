@@ -12,7 +12,7 @@
   }
   
   /* The navigation menu links */
-  .sidenav button {
+  .sidenav-menus button {
     border: none;
     background: none;
     padding: 8px 8px 8px 32px;
@@ -53,7 +53,7 @@
     cursor: pointer;
 }
 
-.hamburger-button{
+.hamburger-icon{
     display: none;
 }
 
@@ -76,7 +76,7 @@
     cursor: pointer;
 }
 
-.menus{
+.main-menus{
     margin-top: 1em;
     display: flex;
     justify-content: center;
@@ -85,13 +85,13 @@
     border-bottom: 4px double black;
 }
 
-.menus button{
+.main-menus button{
     border: none;
     background: none;
     margin: 5px;
 }
 
-.menus button:hover{
+.main-menus button:hover{
     background-color: beige;
 }
 
@@ -104,11 +104,20 @@
     border-bottom: 2px solid black;
 }
 
+.pagination-area{
+    display: flex;
+    justify-content: center;
+}
+
+.page-item :hover{
+    cursor: pointer;
+}
+
 @media (max-width:575px) {
-    .hamburger-button{
+    .hamburger-icon{
         display: block;
     }
-    .menus{
+    .main-menus{
         display: none;
     }
 }
