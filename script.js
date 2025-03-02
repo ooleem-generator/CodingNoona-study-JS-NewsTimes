@@ -9,7 +9,7 @@ let searchInput = document.getElementById("search-input");
 let url = new URL('https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr');
 let totalResults = 0;
 let page = 1;
-const pageSize = 10;
+const pageSize = 7;
 const groupSize = 5;
 
 /* Set the width of the side navigation to 250px */
@@ -53,7 +53,8 @@ const getNews = async () => {
                 throw new Error("No matches for your search")
             }
             newsList = data.articles;
-            totalResults = data.totalResults
+            totalResults = data.totalResults;
+            console.log(totalResults);
             render();
             paginationRender();
 
@@ -119,13 +120,15 @@ const paginationRender = () => {
         lastPage = totalPages;
     }
     const firstPage = lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
-    let paginationHTML = `<li class="page-item ${page===1?"disabled" : ""}"><a class="page-link" onclick="moveToPage(${page-1})">Previous</a></li>`;
+    let paginationHTML = `<li class="page-item" ${page===1?"style='display:none'" : ""}><a class="page-link" onclick="moveToPage(${1})">&laquo;</a></li>`;
+    paginationHTML += `<li class="page-item" ${page===1?"style='display:none'" : ""}><a class="page-link" onclick="moveToPage(${page-1})">&lt;</a></li>`;
 
     for (let i=firstPage; i<=lastPage; i++) {
         paginationHTML += `<li class="page-item ${i===page?"active" : ""}" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`;
     }
 
-    paginationHTML += `<li class="page-item ${page===lastPage?"disabled" : ""}"><a class="page-link" onclick="moveToPage(${page+1})">Next</a></li>`
+    paginationHTML += `<li class="page-item" ${page===totalPages?"style='display:none'" : ""}><a class="page-link" onclick="moveToPage(${page+1})">&gt;</a></li>`
+    paginationHTML += `<li class="page-item" ${page===totalPages?"style='display:none'" : ""}><a class="page-link" onclick="moveToPage(${totalPages})">&raquo;</a></li>`
     document.querySelector(".pagination").innerHTML = paginationHTML;
 }
 
